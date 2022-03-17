@@ -1,0 +1,26 @@
+services:
+  api:
+    build: .
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      PGHOST: db
+      PGUSER: userdb
+      PGDATABASE: proiectpw
+      PGPASSWORD: proiectpass
+      PGPORT: 54328
+    ports:
+      - 3000:3000
+    networks:
+      - proiectpw
+  
+  db:
+    networks:
+      - proiectpw
+
+  pgadmin:
+    networks:
+      - proiectpw
+
+networks:
+  proiectpw:

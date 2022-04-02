@@ -1,12 +1,13 @@
 const { queryAsync } = require('..');
 
-const addMachinery = async (clientId, type, description, price, startDate, endDate) => {
+const addMachinery = async (clientId, type, description, price, startDate) => {
     console.info(`Adding machinery for ${clientId} clientId`);
 
+	//FIXME
     const offers = await queryAsync(`
-        INSERT INTO utilaje(idClient, tip, descriere, pret, valabil, perioadaInceput, perioadaFinal)
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`, [clientId, type, description, price, true, startDate, endDate]);
-        
+        INSERT INTO pet(idClient, tip, descriere, puncte, valabil, perioadaInceput)
+        VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`, [clientId, type, description, price, true, startDate]);
+
     return offers[0];
 }
 
@@ -18,12 +19,11 @@ const getMachineriesByClientId = async (clientId) => {
                         u.idClient AS clientId,
                         u.tip AS type,
                         u.descriere AS description,
-                        u.pret AS price,
+                        u.puncte AS price,
                         u.valabil as isAvailable,
-                        u.perioadaInceput AS startDate,
-                        u.perioadaFinal AS endDate
-                    FROM 
-                        utilaje u
+                        u.perioadaInceput AS startDate
+                    FROM
+                        pet u
                     WHERE u.idClient = $1`, [clientId]);
 }
 
@@ -36,12 +36,11 @@ const getAllMachineriesExceptYours = async (clientId) => {
                         u.tip AS type,
                         c.nume AS name,
                         u.descriere AS description,
-                        u.pret AS price,
+                        u.puncte AS price,
                         u.valabil AS isAvailable,
-                        u.perioadaInceput AS startDate,
-                        u.perioadaFinal AS endDate
+                        u.perioadaInceput AS startDate
                     FROM 
-                        utilaje u
+                        pet u
                     INNER JOIN clienti c on u.idClient = c.id
                     WHERE u.idClient != $1`, [clientId]);
 }
@@ -54,12 +53,11 @@ const getMachineriesByType = async (type) => {
                         u.idClient AS clientId,
                         u.tip AS type,
                         u.descriere AS description,
-                        u.pret AS price,
+                        u.puncte AS price,
                         u.valabil AS isAvailable,
-                        u.perioadaInceput AS startDate,
-                        u.perioadaFinal AS endDate
-                    FROM 
-                        utilaje u
+                        u.perioadaInceput AS startDate
+                    FROM
+                        pet u
                     WHERE u.tip = $1`, [type]);
 }
 

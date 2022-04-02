@@ -4,27 +4,24 @@ class MachineryBody {
     constructor (body) {
 
         if (!body.clientId) {
-            throw new ServerError("Lipseste id-ul clientului", 400);
+		//body.clientId = 1;
+	    throw new ServerError("Lipseste id-ul clientului", 400);
         }
 
         if (!body.type) {
-            throw new ServerError("Lipseste id-ul utilajului", 400);
+            throw new ServerError("Lipseste id-ul animalului", 400);
         }
-    
+
         if (!body.description) {
             throw new ServerError("Lipseste start date-ul", 400);
         }
 
         if (!body.price) {
-            throw new ServerError("Lipseste end date-ul", 400);
+            throw new ServerError("Lipseste recompensa", 400);
         }
 
         if (!body.startDate) {
             throw new ServerError("Lipseste start date-ul", 400);
-        }
-
-        if (!body.endDate) {
-            throw new ServerError("Lipseste end date-ul", 400);
         }
 
         this.clientId = body.clientId;
@@ -32,7 +29,6 @@ class MachineryBody {
         this.description = body.description;
         this.price = body.price;
         this.startDate = body.startDate;
-        this.endDate = body.endDate;
     }
 
     get ClientId () {
@@ -54,10 +50,6 @@ class MachineryBody {
     get StartDate () {
         return this.startDate;
     }
-
-    get EndDate () {
-        return this.endDate;
-    }
 }
 
 class MachineriesResponse {
@@ -69,7 +61,6 @@ class MachineriesResponse {
         this.isAvailable = machinery.isavailable;
         this.price = machinery.price;
         this.startDate = machinery.startdate;
-        this.endDate = machinery.enddate;
         this.clientName = machinery.name;
     }
 }

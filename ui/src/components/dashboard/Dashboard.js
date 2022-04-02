@@ -149,7 +149,7 @@ function DashboardContent({ match }) {
                         blockSize : "max-content",
                         padding:1,
                     }}
-                    image="https://source.unsplash.com/featured/?machinery"
+                    image="https://source.unsplash.com/featured/?pets"
                     alt="random"
                 />
 
@@ -217,7 +217,6 @@ function DashboardContent({ match }) {
 		description:state.description,
 		price:state.price,
 		startDate:state.startDate,
-		endDate:state.endDate,
 		clientId: localStorage.getItem("idUser")
         }).then(response => {
           handleClose();

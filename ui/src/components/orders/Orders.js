@@ -195,7 +195,7 @@ function OrdersContent() {
                     blockSize : "max-content",
                     padding:1,
                 }}
-                image="https://source.unsplash.com/featured/?machinery"
+                image="https://source.unsplash.com/featured/?pets"
                 alt="random"
             />
 
@@ -213,7 +213,7 @@ function OrdersContent() {
                     Nume Proprietar: {machinery.clientName}
                 </Typography>
                 <Typography>
-                    Aceasta oferta este valabila incepand cu {machinery.endDate.split('T')[0]} si se termina pe {machinery.startDate.split('T')[0]}.
+                    Aceasta oferta este valabila incepand cu {machinery.startDate.split('T')[0]}.
                 </Typography>
                 
             </CardContent>

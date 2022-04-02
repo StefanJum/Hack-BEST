@@ -10,7 +10,7 @@ const Router = express.Router();
 Router.post('/add', async (req, res) => {
 
     const machineryBody = new MachineryBody(req.body);
-    const response = await MachineriesRepository.addMachinery(machineryBody.clientId, machineryBody.type, machineryBody.description, machineryBody.price, machineryBody.startDate, machineryBody.endDate);
+    const response = await MachineriesRepository.addMachinery(machineryBody.clientId, machineryBody.type, machineryBody.description, machineryBody.price, machineryBody.startDate);
 
     ResponseFilter.setResponseDetails(res, 200, response)
 });

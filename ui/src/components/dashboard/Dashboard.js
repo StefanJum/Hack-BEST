@@ -226,7 +226,7 @@ function DashboardContent({ match }) {
 		type:state.type,
 		description:state.description,
 		price:state.price,
-		startDate:state.startDate,
+		startDate:value,
 		endDate:state.endDate,
 		clientId: localStorage.getItem("idUser")
         }).then(response => {

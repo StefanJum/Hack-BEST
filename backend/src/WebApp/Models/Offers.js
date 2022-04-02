@@ -10,14 +10,6 @@ class OfferBody {
         if (!body.machineryId) {
             throw new ServerError("Lipseste id-ul utilajului", 400);
         }
-    
-        if (!body.startDate) {
-            throw new ServerError("Lipseste start date-ul", 400);
-        }
-
-        if (!body.endDate) {
-            throw new ServerError("Lipseste end date-ul", 400);
-        }
 
         this.clientId = body.clientId;
         this.machineryId = body.machineryId;

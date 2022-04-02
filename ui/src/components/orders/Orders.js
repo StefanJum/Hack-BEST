@@ -134,6 +134,13 @@ function OrdersContent() {
   const [date, setDate] = React.useState({startDate: "", endDate: ""})
   const [yourOffer, setYourOffer] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
   const [OfferForClient, setOfferForClient] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
+  const [description, setDescription] = React.useState('');
+
+  function setDesc(event) {
+	//setState({description:event.target.value});
+	console.log(description);
+	setDescription(event.target.value)
+  }
 
   useEffect(() => {
 	let id = localStorage.getItem("idUser");
@@ -196,13 +203,17 @@ function OrdersContent() {
                 sx={{
                     // 16:9
                     blockSize : "max-content",
+		    width: 400,
+		    height: 350,
                     padding:1,
+		max-width: '80%',
+		margin: "3%", textAllign: "center"
                 }}
                 image="https://source.unsplash.com/featured/?pet"
                 alt="random"
             />
 
-            <CardContent sx={{ flexGrow: 1 }}>
+            <CardContent sx={{ width: 400, height: 350 }}>
                 <Typography gutterBottom variant="h5" component="h2">
                     Tip: {machinery.type}
                 </Typography>
@@ -228,19 +239,19 @@ function OrdersContent() {
 				onClose={handleClose}
 				aria-labelledby="modal-title"
 			>
-	  		  <Box component="form" noValidate sx={{ ...style, width: 600, height: 300 }}>
+	  		  <Box component="form" noValidate sx={{ ...style, width: 400, height: 350 }}>
 	  		    <Grid container spacing={2}>
 	  		     <h2 id="modal-title">Animăluț găsit😍. Te rog completează:</h2>
 				<TextField
-            multiline = "true"
-            minRows = "4"
-				    onChange = {setEndDate}
+				    multiline = "true"
+				    minRows = "4"
+				    onChange = {setDesc}
 				    required
 				    id="endDate"
 				    label="Descriere animal găsit"
 				    name="endDate"
-                    autoFocus
-                    fullWidth
+				    autoFocus
+				    fullWidth
 				/>
 
 			    {/* <Grid item xs={12} sm={6}>

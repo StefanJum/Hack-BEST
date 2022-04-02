@@ -4,8 +4,8 @@ const addOffer = async (clientId, petId, startDate) => {
     console.info(`Adding offer with ${clientId} clientId and ${petId} machineryId`);
 
     const offers = await queryAsync(`
-        INSERT INTO oferte(idClient, idPet, perioadaInceputOferta)
-        VALUES ($1, $2, $3) RETURNING id`, [clientId, petId, startDate]);
+        INSERT INTO oferte(idClient, idPet, perioadaInceputOferta, solved)
+        VALUES ($1, $2, $3, $4) RETURNING id`, [clientId, petId, startDate, true]);
 
     return offers[0];
 }

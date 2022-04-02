@@ -22,3 +22,15 @@ Fiecare oferta are la fel o perioada de inchiriere  ce trebuie sa fie inclusa in
 * Frontend - React + Material UI
 * Backend - NodeJs
 * Baza de date - PostgresSQL (rulata local intr-un container de Docker)
+
+
+## IDEI
+
+* scăpăm de chatting - boolean - animal găsit - react la owner
+* în loc de preț - puncte în aplicație (recompensă - opțional)
+* parteneriate - la x puncte acumulare - giftcarsd
+* istoric - owneri ajutați
+* la accept - ownerul primește nr tel - nume - #TODO poză
+* la close - heroul primește puncte
+* ? ownerul să poată da din punctele lui către hero
+* la x nr de puncte, heroul primește ceva

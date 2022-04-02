@@ -9,7 +9,7 @@ export default function SearchBarContent() {
 	// }
 return (
 	<SearchBar
-		style = {{margin: '0 auto', Width: '100%'}}
+		style = {{margin: '0 auto', height: '100%', width: "calc(100% - 100px)"}}
 		value = {searched}
 		// onChange = {(Event) = setSearched(Event)}
 		onRequestSearch={() => alert(searched)}

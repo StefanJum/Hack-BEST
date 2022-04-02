@@ -199,7 +199,7 @@ function OrdersContent() {
   function generateMachineryElement(machinery) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "3%", textAllign: "center"}}>
+		<Paper elevation={5} style={{margin: "3%", textAllign: "center", width: "calc(200% - 21px)"}}>
 
             <CardMedia
                 component="img"
@@ -298,7 +298,7 @@ function OrdersContent() {
   function generateyourOffersElement(offer) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "auto", textAllign: "center", position: "center", size: "landscape"}}>
+		<Paper elevation={5} style={{margin: "auto", textAllign: "center", position: "center", size: "landscape", width: "calc(200% - 21px)"}}>
 		    <span>Ai salvat animăluțul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> lui <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
 		    <div>
 
@@ -320,7 +320,8 @@ function OrdersContent() {
   function generateOffersForClientElement(offer) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "auto", textAllign: "center"}}>
+
+		<Paper elevation={5} style={{margin: "auto", textAllign: "center", width: "calc(200% - 21px)"}}>
 		    <span>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> și are numărul de telefon: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.clientPhone}</span></span>
 		    <div>
 		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
@@ -367,7 +368,7 @@ function OrdersContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Orders
+              Animăluțe pierdute
             </Typography>
             <IconButton color="inherit">
 	  	<AddIcon color = "primary" />

@@ -41,21 +41,21 @@ import { Link as RouterLink } from 'react-router-dom';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from "@mui/material/CardActions";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
+      {'Copyright © Șoferi supărați de Skoda '}
+      
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const style = {
   position: 'absolute',
@@ -108,7 +108,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         }),
         width: theme.spacing(7),
         [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
+          width: theme.spacing(7),
         },
       }),
     },
@@ -182,6 +182,9 @@ function OrdersContent() {
 	  }).catch(error => {
 	  })
   }
+  const Input = styled('input')({
+    display: 'none',
+  });
 
   function generateMachineryElement(machinery) {
 	return (
@@ -195,7 +198,7 @@ function OrdersContent() {
                     blockSize : "max-content",
                     padding:1,
                 }}
-                image="https://source.unsplash.com/featured/?machinery"
+                image="https://source.unsplash.com/featured/?pet"
                 alt="random"
             />
 
@@ -204,21 +207,21 @@ function OrdersContent() {
                     Tip: {machinery.type}
                 </Typography>
                 <Typography>
-                    Descriere utilaj: {machinery.description}
+                    Descriere animăluț: {machinery.description}
                 </Typography>
                 <Typography>
-                    Preț: {machinery.price}lei/zi
+                    Recompensă: {machinery.price} puncte
                 </Typography>
                 <Typography>
                     Nume Proprietar: {machinery.clientName}
                 </Typography>
                 <Typography>
-                    Aceasta oferta este valabila incepand cu {machinery.endDate.split('T')[0]} si se termina pe {machinery.startDate.split('T')[0]}.
+                    Animăluțul a fost pierdut la data de {machinery.startDate.split('T')[0]}.
                 </Typography>
                 
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={handleOpen}>Rezervă comanda</Button>
+                <Button size="small" onClick={handleOpen}>Animăluț găsit😍</Button>
             </CardActions>
 			<Modal
 				open={modalOpen}
@@ -227,20 +230,20 @@ function OrdersContent() {
 			>
 	  		  <Box component="form" noValidate sx={{ ...style, width: 600, height: 300 }}>
 	  		    <Grid container spacing={2}>
-	  		     <h2 id="modal-title">Vă rugăm să selectați perioada</h2>
-			    <Grid item xs={12} sm={6}>
+	  		     <h2 id="modal-title">Animăluț găsit😍. Te rog completează:</h2>
 				<TextField
-                    width = "200px"
+            multiline = "true"
+            minRows = "4"
 				    onChange = {setEndDate}
 				    required
 				    id="endDate"
-				    label="Final valabilitate"
+				    label="Descriere animal găsit"
 				    name="endDate"
                     autoFocus
                     fullWidth
 				/>
-			    </Grid>
-			    <Grid item xs={12} sm={6}>
+
+			    {/* <Grid item xs={12} sm={6}>
 				<TextField
 				    onChange = {setStartDate}
 				    required
@@ -249,7 +252,23 @@ function OrdersContent() {
 				    label="Început valabilitate"
 				    name="startDate"
 				/>
-			   </Grid>
+			   </Grid> */}
+
+         <Grid item xs={12}>
+      <label htmlFor="contained-button-file">
+        <Input accept="image/*" id="contained-button-file" multiple type="file" />
+        <Button variant="contained" component="span">
+          Upload
+        </Button>
+      </label>
+      <label htmlFor="icon-button-file">
+        <Input accept="image/*" id="icon-button-file" type="file" />
+        <IconButton color="primary" aria-label="upload picture" component="span">
+          <PhotoCamera />
+        </IconButton>
+      </label>
+      </Grid>
+    
 			   </Grid>
 			   <Button
 				onClick = {() => saveOffer(machinery.id)}
@@ -346,7 +365,8 @@ function OrdersContent() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        
+          <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
               display: 'flex',
@@ -360,62 +380,9 @@ function OrdersContent() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List>
-		  <div>
-		    <MuiLink 
-		      component={RouterLink}
-		      to={'/dashboard'}>
-		      <ListItem button>
-			<ListItemIcon>
-			  <DashboardIcon />
-			</ListItemIcon>
-			<ListItemText primary="Dashboard" />
-		      </ListItem>
-		    </MuiLink>
-		    <MuiLink
-		      component={RouterLink}
-		      to={'/dashboard/orders'}>
-		      <ListItem button>
-			<ListItemIcon>
-			  <ShoppingCartIcon />
-			</ListItemIcon>
-			<ListItemText primary="Orders" />
-		      </ListItem>
-		    </MuiLink>
-		  <MuiLink href="#">
-		    <ListItem button>
-		      <ListItemIcon>
-			<PeopleIcon />
-		      </ListItemIcon>
-		      <ListItemText primary="Customers" />
-		    </ListItem>
-		  </MuiLink>
-		  </div>
-	  </List>
+          <List>{mainListItems}</List>
           <Divider />
-          <List>
-		  <div>
-		    <ListSubheader inset>Saved reports</ListSubheader>
-		    <ListItem button>
-		      <ListItemIcon>
-			<AssignmentIcon />
-		      </ListItemIcon>
-		      <ListItemText primary="Current month" />
-		    </ListItem>
-		    <ListItem button>
-		      <ListItemIcon>
-			<AssignmentIcon />
-		      </ListItemIcon>
-		      <ListItemText primary="Last quarter" />
-		    </ListItem>
-		    <ListItem button>
-		      <ListItemIcon>
-			<AssignmentIcon />
-		      </ListItemIcon>
-		      <ListItemText primary="Year-end sale" />
-		    </ListItem>
-		  </div>
-	</List>
+          <List>{secondaryListItems}</List>
         </Drawer>
         <Box
           component="main"
@@ -433,33 +400,7 @@ function OrdersContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
 	  	<SearchBar />
-              {/* Chart /}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-			<Chart />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits }
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>*/}
-              {/* Recent Orders - DELETED*/}
+             
             </Grid>
 	    {getMachineries()}
 

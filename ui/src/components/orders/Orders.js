@@ -133,7 +133,7 @@ function OrdersContent() {
   const [machineries, setMachineries] = React.useState([{type: "", description: "", price: "", isAvailable: true, startDate: "", endDate: "", id: 0, clientId: 0, clientName: ""}]);
   const [date, setDate] = React.useState({startDate: "", endDate: ""})
   const [yourOffer, setYourOffer] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
-  const [OfferForClient, setOfferForClient] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
+  const [OfferForClient, setOfferForClient] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: "", clientPhone: ""}]);
   const [description, setDescription] = React.useState('');
 
   function setDesc(event) {
@@ -149,6 +149,7 @@ function OrdersContent() {
         axios.get(`http://localhost:4200/api/machinery/${id}/no-client`, {
         }).then(response => {
 		setMachineries(response.data);
+		console.log(machineries);
         }).catch(error => {
             console.log(error)
             alert('Ceva nu a mers bine! Asigura-te ca datele introduse sunt corecte si ca ti-ai activat contul!')
@@ -179,6 +180,8 @@ function OrdersContent() {
   }
 
   function saveOffer(machinery) {
+	  
+				console.log(machineries[0].id);
 	  axios.post(`http://localhost:4200/api/offers/add`, {
 		clientId: parseInt(localStorage.getItem("idUser")),
 		machineryId: machinery,
@@ -206,7 +209,6 @@ function OrdersContent() {
 		    width: 400,
 		    height: 350,
                     padding:1,
-		max-width: '80%',
 		margin: "3%", textAllign: "center"
                 }}
                 image="https://source.unsplash.com/featured/?pet"
@@ -282,7 +284,7 @@ function OrdersContent() {
     
 			   </Grid>
 			   <Button
-				onClick = {() => saveOffer(machinery.id)}
+				onClick = {() => saveOffer(machineries[0].id)}
 				variant="contained"
 				sx={{ mt: 3, mb: 2 }}
 				style={{marginTop: "5%"}}
@@ -307,7 +309,7 @@ function OrdersContent() {
 		    <span>Ai închiriat utilajul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> de la <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
 		    <div>
 		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}lei/zi</span></span>
-          <span>Perioada de inchiriere incepe cu {offer.endDate.split('T')[0]} si se termina pe {offer.startDate.split('T')[0]}</span>
+          <span>Perioada de inchiriere incepe cu {offer.startDate.split('T')[0]}</span>
 		    </div>
 		</Paper>
 	    </Grid>
@@ -324,13 +326,12 @@ function OrdersContent() {
 	return (
 		<Grid items xs={6}>
 		<Paper elevation={5} style={{margin: "3%", textAllign: "center"}}>
-		    <span>Clientul <span style={{fontWeight: "bold"}}> {offer.clientName} </span> a închiriat utilajul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span></span>
+		    <span>Clientul <span style={{fontWeight: "bold"}}> {offer.clientName} </span> a închiriat utilajul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> și are numărul de telefon: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.clientPhone}</span></span>
 		    <div>
 		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}lei/zi</span></span>
 		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Această oferta începe pe: <span style={{fontWeight: "bold"}}>{offer.startDate.split("T")[0]}</span></span>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Această oferta se termină pe: <span style={{fontWeight: "bold"}}>{offer.endDate.split("T")[0]}</span></span>
-
 		    </div>
+
 		</Paper>
 	    </Grid>
 );

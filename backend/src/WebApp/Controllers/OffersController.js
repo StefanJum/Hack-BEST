@@ -11,6 +11,7 @@ Router.post('/add', async (req, res) => {
 
     const offerBody = new OfferBody(req.body);
     const response = await OffersRepository.addOffer(offerBody.clientId, offerBody.machineryId, offerBody.startDate, offerBody.endDate);
+	let setValability = await OffersRepository.setFalse(offerBody.machineryId);
 
     ResponseFilter.setResponseDetails(res, 200, response)
 });

@@ -10,6 +10,18 @@ const addOffer = async (clientId, petId, startDate) => {
     return offers[0];
 }
 
+const setFalse = async (offerId) => {
+	console.info('Setting offer to unavailable');
+
+	const response = await queryAsync(`
+	UPDATE pet
+	SET valabil = false
+	WHERE pet.id = $1
+		`, [offerId]);
+
+	return response;
+}
+
 const getOffersByClientId = async (clientId) => {
     console.info(`Getting offers for client ${clientId}`);
 
@@ -38,11 +50,12 @@ const getOffersForClientId = async (clientId) => {
                         o.idClient AS clientId,
                         u.id AS petId,
                         c.nume AS name,
+			c.numarTelefon AS phone,
                         u.tip AS type,
                         u.puncte AS points,
                         o.perioadaInceputOferta AS startDate
                     FROM oferte o
-                    INNER JOIN utilaje u ON o.idPet = u.id
+                    INNER JOIN pet u ON o.idPet = u.id
                     INNER JOIN clienti c on c.id = o.idClient
                     WHERE u.idClient = $1`, [clientId]);
 }
@@ -69,5 +82,6 @@ module.exports = {
     getOffersByClientId,
     getOffersByMachineryId,
     getOffersForClientId,
-    getAllOffers
+    getAllOffers,
+    setFalse
 }

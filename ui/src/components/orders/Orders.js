@@ -133,7 +133,7 @@ function OrdersContent() {
   const [machineries, setMachineries] = React.useState([{type: "", description: "", price: "", isAvailable: true, startDate: "", endDate: "", id: 0, clientId: 0, clientName: ""}]);
   const [date, setDate] = React.useState({startDate: "", endDate: ""})
   const [yourOffer, setYourOffer] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
-  const [OfferForClient, setOfferForClient] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
+  const [OfferForClient, setOfferForClient] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: "", clientPhone: ""}]);
   const [description, setDescription] = React.useState('');
 
   function setDesc(event) {
@@ -149,6 +149,7 @@ function OrdersContent() {
         axios.get(`http://localhost:4200/api/machinery/${id}/no-client`, {
         }).then(response => {
 		setMachineries(response.data);
+		console.log(machineries);
         }).catch(error => {
             console.log(error)
             alert('Ceva nu a mers bine! Asigura-te ca datele introduse sunt corecte si ca ti-ai activat contul!')
@@ -179,6 +180,8 @@ function OrdersContent() {
   }
 
   function saveOffer(machinery) {
+	  
+				console.log(machineries[0].id);
 	  axios.post(`http://localhost:4200/api/offers/add`, {
 		clientId: parseInt(localStorage.getItem("idUser")),
 		machineryId: machinery,
@@ -203,12 +206,14 @@ function OrdersContent() {
                 sx={{
                     // 16:9
                     blockSize : "max-content",
+
                     padding:1.5,
 		                margin: "3%", 
                     textAllign: "center",
                     width: "94%",
                     height: "80%"
                     
+
                 }}
                 image="https://source.unsplash.com/featured/?pet"
                 alt="random"
@@ -272,7 +277,7 @@ function OrdersContent() {
     
 			   </Grid>
 			   <Button
-				onClick = {() => saveOffer(machinery.id)}
+				onClick = {() => saveOffer(machineries[0].id)}
 				variant="contained"
 				sx={{ mt: 3, mb: 2 }}
 				style={{marginTop: "5%"}}
@@ -296,8 +301,10 @@ function OrdersContent() {
 		<Paper elevation={5} style={{margin: "auto", textAllign: "center", position: "center", size: "landscape", width: "calc(200% - 21px)"}}>
 		    <span>Ai salvat animăluțul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> lui <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
 		    <div>
+
 		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
           <span>Data faptei bune: {offer.startDate.split('T')[0]}</span>
+
 		    </div>
 		</Paper>
 	    </Grid>
@@ -313,13 +320,16 @@ function OrdersContent() {
   function generateOffersForClientElement(offer) {
 	return (
 		<Grid items xs={6}>
+
 		<Paper elevation={5} style={{margin: "auto", textAllign: "center", width: "calc(200% - 21px)"}}>
-		    <span>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span></span>
+		    <span>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> și are numărul de telefon: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.clientPhone}</span></span>
 		    <div>
 		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
 		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Data faptei bune: <span style={{fontWeight: "bold"}}>{offer.startDate.split("T")[0]}</span></span>
 
+
 		    </div>
+
 		</Paper>
 	    </Grid>
 );

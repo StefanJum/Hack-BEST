@@ -37,6 +37,7 @@ class OfferBody {
 class OffersResponse {
     constructor(offer) {
         this.id = offer.id;
+	this.clientPhone = offer.phone;
         this.clientId = offer.clientid;
         this.machineryId = offer.machineryid;
         this.isAccepted = offer.isaccepted;

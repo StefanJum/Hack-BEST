@@ -4,13 +4,14 @@ import React, { useState } from "react";
 
 export default function SearchBarContent() {
 	const [searched, setSearched] = useState("");
-	const requestSearch = (searchedVal: string) => {
-		return alert(searchedVal);
-	}
+	// const requestSearch = (searchedVal: ) => {
+	// 	return alert(searchedVal);
+	// }
 return (
 	<SearchBar
+		style = {{margin: '0 auto', Width: '100%'}}
 		value = {searched}
-		onChange = {(searchVal) => requestSearch(searchVal)}
+		// onChange = {(Event) = setSearched(Event)}
 		onRequestSearch={() => alert(searched)}
 	/>
 );

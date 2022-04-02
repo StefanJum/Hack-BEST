@@ -93,7 +93,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
       position: 'relative',
-      whiteSpace: 'nowrap',
+      whiteSpace: 'wrap',
       width: drawerWidth,
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -102,13 +102,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       boxSizing: 'border-box',
       ...(!open && {
         overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
+        transition: theme.transitions.create('width: auto', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
         width: theme.spacing(7),
         [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(7),
+          width: theme.spacing(0),
         },
       }),
     },
@@ -203,17 +203,19 @@ function OrdersContent() {
                 sx={{
                     // 16:9
                     blockSize : "max-content",
-		    width: 400,
-		    height: 350,
-                    padding:1,
-		max-width: '80%',
-		margin: "3%", textAllign: "center"
+                    padding:1.5,
+		                margin: "3%", 
+                    textAllign: "center",
+                    width: "94%",
+                    height: "80%"
+                    
                 }}
                 image="https://source.unsplash.com/featured/?pet"
                 alt="random"
+                
             />
 
-            <CardContent sx={{ width: 400, height: 350 }}>
+            <CardContent sx={{ width: "80%", height:"100%"}}>
                 <Typography gutterBottom variant="h5" component="h2">
                     Tip: {machinery.type}
                 </Typography>
@@ -232,14 +234,14 @@ function OrdersContent() {
                 
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={handleOpen}>Animăluț găsit😍</Button>
+                <Button size="large" onClick={handleOpen}>Animăluț găsit😍</Button>
             </CardActions>
 			<Modal
 				open={modalOpen}
 				onClose={handleClose}
 				aria-labelledby="modal-title"
 			>
-	  		  <Box component="form" noValidate sx={{ ...style, width: 400, height: 350 }}>
+	  		  <Box component="form" noValidate sx={{ ...style, width: "60%", height: "60%" }}>
 	  		    <Grid container spacing={2}>
 	  		     <h2 id="modal-title">Animăluț găsit😍. Te rog completează:</h2>
 				<TextField
@@ -253,18 +255,6 @@ function OrdersContent() {
 				    autoFocus
 				    fullWidth
 				/>
-
-			    {/* <Grid item xs={12} sm={6}>
-				<TextField
-				    onChange = {setStartDate}
-				    required
-				    fullWidth
-				    id="startDate"
-				    label="Început valabilitate"
-				    name="startDate"
-				/>
-			   </Grid> */}
-
          <Grid item xs={12}>
       <label htmlFor="contained-button-file">
         <Input accept="image/*" id="contained-button-file" multiple type="file" />
@@ -303,11 +293,11 @@ function OrdersContent() {
   function generateyourOffersElement(offer) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "3%", textAllign: "center"}}>
-		    <span>Ai închiriat utilajul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> de la <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
+		<Paper elevation={5} style={{margin: "auto", textAllign: "center", position: "center", size: "landscape"}}>
+		    <span>Ai salvat animăluțul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> lui <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
 		    <div>
-		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}lei/zi</span></span>
-          <span>Perioada de inchiriere incepe cu {offer.endDate.split('T')[0]} si se termina pe {offer.startDate.split('T')[0]}</span>
+		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
+          <span>Data faptei bune: {offer.startDate.split('T')[0]}</span>
 		    </div>
 		</Paper>
 	    </Grid>
@@ -323,12 +313,11 @@ function OrdersContent() {
   function generateOffersForClientElement(offer) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "3%", textAllign: "center"}}>
-		    <span>Clientul <span style={{fontWeight: "bold"}}> {offer.clientName} </span> a închiriat utilajul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span></span>
+		<Paper elevation={5} style={{margin: "auto", textAllign: "center"}}>
+		    <span>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span></span>
 		    <div>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}lei/zi</span></span>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Această oferta începe pe: <span style={{fontWeight: "bold"}}>{offer.startDate.split("T")[0]}</span></span>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Această oferta se termină pe: <span style={{fontWeight: "bold"}}>{offer.endDate.split("T")[0]}</span></span>
+		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
+		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Data faptei bune: <span style={{fontWeight: "bold"}}>{offer.startDate.split("T")[0]}</span></span>
 
 		    </div>
 		</Paper>
@@ -403,8 +392,9 @@ function OrdersContent() {
                 ? theme.palette.grey[100]
                 : theme.palette.grey[900],
             flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
+            height: 'fit-content',
+            width: 'fit-content',
+            overflow: 'auto'
           }}
         >
           <Toolbar />
@@ -417,9 +407,9 @@ function OrdersContent() {
 
 	    <hr/>
 	    <div>
-	  	<h1> Istoric comenzi </h1>
-	   	<div><h2> Comenzi date de tine </h2> {getYourOffers()} </div>
-	  	<div><h2> Comenzile altor utilizatori pentru tine </h2> {getOffersForClient()} </div>
+	  	<h1> Istoric animăluțe salvate: </h1>
+	   	<div><h2> Animăluțe salvate de tine: </h2> {getYourOffers()} </div>
+	  	<div><h2> Animăluțele tale care s-au găsit💕:  </h2> {getOffersForClient()} </div>
 	    </div>
             <Copyright sx={{ pt: 4 }} />
           </Container>

@@ -42,7 +42,7 @@ const getAllMachineriesExceptYours = async (clientId) => {
                     FROM 
                         pet u
                     INNER JOIN clienti c on u.idClient = c.id
-                    WHERE u.idClient != $1`, [clientId]);
+                    WHERE u.valabil = true AND u.idClient != $1`, [clientId]);
 }
 
 const getMachineriesByType = async (type) => {

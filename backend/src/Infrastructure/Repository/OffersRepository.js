@@ -34,7 +34,7 @@ const getOffersByClientId = async (clientId) => {
 			c.numarTelefon as phone,
 			o.idHero as hero,
                         u.tip AS type,
-                        u.puncte AS points,
+                        u.puncte AS price,
                         o.perioadaInceputOferta AS startDate
                     FROM
                         oferte o
@@ -52,7 +52,7 @@ const getOffersForClientId = async (clientId) => {
                         c.nume AS name,
 			c.numarTelefon AS phone,
                         u.tip AS type,
-                        u.puncte AS points,
+                        u.puncte AS price,
                         o.perioadaInceputOferta AS startDate
                     FROM oferte o
                     INNER JOIN pet u ON o.idPet = u.id

@@ -166,6 +166,9 @@ function OrdersContent() {
 	axios.get(`http://localhost:4200/api/offers/${id}/for-client`, {
 	}).then(response => {
 		setOfferForClient(response.data);
+		console.log(response.data);
+		if (response.data.length >= 1)
+		alert('Animăluțul tău a fost găsit!');
 	}).catch(error => {
 		console.log(error);
 	});
@@ -302,8 +305,7 @@ function OrdersContent() {
 		    <span>Ai salvat animăluțul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> lui <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
 		    <div>
 
-		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Preț: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
-          <span>Data faptei bune: {offer.startDate.split('T')[0]}</span>
+		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price} puncte</span></span>
 
 		    </div>
 		</Paper>
@@ -324,8 +326,7 @@ function OrdersContent() {
 		<Paper elevation={5} style={{margin: "auto", textAllign: "center", width: "calc(200% - 21px)"}}>
 		    <span>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> și are numărul de telefon: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.clientPhone}</span></span>
 		    <div>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price}puncte</span></span>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Data faptei bune: <span style={{fontWeight: "bold"}}>{offer.startDate.split("T")[0]}</span></span>
+		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price} puncte</span></span>
 
 
 		    </div>

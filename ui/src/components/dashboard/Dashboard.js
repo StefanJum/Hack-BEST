@@ -38,14 +38,17 @@ import axios from "axios";
 import OrdersPage from '../../pages/OrdersPage'
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
+// pentru calendar
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DateAdapter from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
+      {'Copyright © Șoferi supărați de Skoda '}
+      
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -66,7 +69,7 @@ const style = {
   pb: 3,
 };
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -113,6 +116,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
+  
+
 function DashboardContent({ match }) {
   const [open, setOpen] = React.useState(true);
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -121,6 +126,11 @@ function DashboardContent({ match }) {
   const [id, setId] = React.useState(parseInt(localStorage.getItem("idUser")));
   const [state, setState] = React.useState({type: "", description: "", price: "", isAvailable: true, startDate: "", endDate: ""});
   const [machineries, setMachineries] = React.useState([{type: "", description: "", price: "", isAvailable: true, startDate: "", endDate: "", id: 0, clientId: 0}]);
+  const [value, setValue] = React.useState(new Date('2022-04-02T21:11:54'));
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
 
   useEffect(() => {
     axios.get(`http://localhost:4200/api/machinery/${id}/client`, {
@@ -149,7 +159,7 @@ function DashboardContent({ match }) {
                         blockSize : "max-content",
                         padding:1,
                     }}
-                    image="https://source.unsplash.com/featured/?pets"
+                    image="https://source.unsplash.com/featured/?pet"
                     alt="random"
                 />
 
@@ -158,15 +168,15 @@ function DashboardContent({ match }) {
                         Tip:{machinery.type}
                     </Typography>
                     <Typography>
-                        Descriere utilaj:{machinery.description}
+                        Descriere animăluț:{machinery.description}
                     </Typography>
                     <Typography>
-                        Preț:{machinery.price}lei/zi
+                        Recompensă:{machinery.price}puncte
                     </Typography>
                 </CardContent>
             </Paper>
 	    </Grid>
-);
+ );
   }
 
   function getMachineries() {
@@ -206,10 +216,10 @@ function DashboardContent({ match }) {
     	startDate:state.startDate, endDate:event.target.value});
   }
 
-  function setStartDate(event) {
-    setState({type:state.type, description:state.description, price:state.price,
-    	startDate:event.target.value, endDate:state.endDate});
-  }
+  // function setStartDate(event) {
+  //   setState({type:state.type, description:state.description, price:state.price,
+  //   	startDate:event.target.value, endDate:state.endDate});
+  // }
 
   function createEntry() {
         axios.post("http://localhost:4200/api/machinery/add", {
@@ -217,6 +227,7 @@ function DashboardContent({ match }) {
 		description:state.description,
 		price:state.price,
 		startDate:state.startDate,
+		endDate:state.endDate,
 		clientId: localStorage.getItem("idUser")
         }).then(response => {
           handleClose();
@@ -264,27 +275,36 @@ function DashboardContent({ match }) {
 	  		aria-labelledby="modal-title"
 		>
 	  	<Box component="form" noValidate sx={{ ...style, width: 400 }}>
-	  	<Grid container spacing={2}>
+	  	<Grid container spacing={0}>
 	  		<h2 id="modal-title">Title</h2>
 	  	  <FormControl fullWidth>	
-	  	    <InputLabel id="selectTypeLabel">Selectați tipul utilajului</InputLabel>
+	  	    <InputLabel id="selectTypeLabel">Selecție animal</InputLabel>
 		    <Select
 		      labelId="selectTypeLabel"
 		      id="selectType"
 		      value={type}
-		      label="Tipul Utilajului"
+		      label="Tipul Animalului"
 		      onChange={setUtilType}
 		    >
-		      <MenuItem value={"Tractor"}>Tractor</MenuItem>
-		      <MenuItem value={"Tir"}>Tir</MenuItem>
-		      <MenuItem value={"Basculanta"}>Basculanta</MenuItem>
+		      <MenuItem value={"Caine"}>Câine</MenuItem>
+		      <MenuItem value={"Pisica"}>Pisică</MenuItem>
+		      <MenuItem value={"Iepure"}>Iepure</MenuItem>
+		      <MenuItem value={"Hamster"}>Hamster</MenuItem>
+		      <MenuItem value={"Papagal"}>Papagal</MenuItem>
+		      <MenuItem value={"Soparla"}>Șopârlă</MenuItem>
+		      <MenuItem value={"Cal"}>Cal</MenuItem>
+		      <MenuItem value={"Magar"}>Măgar</MenuItem>
+		      <MenuItem value={"Vaca"}>Vacă</MenuItem>
+		      <MenuItem value={"Oaie"}>Oaie</MenuItem>
+		      <MenuItem value={"Altceva"}>Altceva (Scrie în descriere)</MenuItem>
+
 		    </Select>
 		      <TextField
 			  margin="normal"
 			  required
 			  fullWidth
 			  id="description"
-			  label="Descriere Utilaj"
+			  label="Descriere Animăluț"
 			  name="description"
 			  autoFocus
 	  		  onChange={setDescription}
@@ -293,32 +313,25 @@ function DashboardContent({ match }) {
 		    <Grid item xs={12} sm={6}>
 			<TextField
 			    onChange = {setPrice}
-			    required
 			    fullWidth
-			    id="price"
-			    label="Preț"
-			    name="price"
+			    id="recompensa"
+			    label="Recompensa"
+			    name="recompensa"
 			/>
+		   
 		    </Grid>
 		    <Grid item xs={12} sm={6}>
-			<TextField
-			    onChange = {setEndDate}
-			    required
-			    fullWidth
-			    id="endDate"
-			    label="Final valabilitate"
-			    name="endDate"
-			/>
-		    </Grid>
-		    <Grid item xs={12} sm={6}>
-			<TextField
-			    onChange = {setStartDate}
-			    required
-			    fullWidth
-			    id="startDate"
-			    label="Început valabilitate"
-			    name="startDate"
-			/>
+
+  
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <MobileDatePicker
+          label="Date mobile"
+          inputFormat="MM/dd/yyyy"
+          value={value}
+          onChange={setValue}
+          renderInput={(params) => <TextField {...params} />}
+        />
+        </LocalizationProvider>
 		    </Grid>
 		    <Button
 			onClick = {createEntry}

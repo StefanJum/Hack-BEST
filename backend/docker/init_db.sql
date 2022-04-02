@@ -65,4 +65,3 @@ CREATE TABLE IF NOT EXISTS oferte (
     CONSTRAINT dk_oferte_clienti FOREIGN KEY (idClient) REFERENCES clienti(id),
     CONSTRAINT dk_oferte_utilaje FOREIGN KEY (idPet) REFERENCES pet(id)
 );
-

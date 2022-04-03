@@ -135,21 +135,32 @@ function OrdersContent({match}) {
   const [yourOffer, setYourOffer] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: ""}]);
   const [OfferForClient, setOfferForClient] = React.useState([{type: "", price: "", startDate: "", endDate: "", id: 0, clientId: 0, machineryId: 0, clientName: "", clientPhone: ""}]);
   const [description, setDescription] = React.useState('');
+  const [yourPoints, setYourPoints] = React.useState([{points: 0}]);
 
   function setDesc(event) {
 	//setState({description:event.target.value});
-	console.log(description);
+	//console.log(description);
 	setDescription(event.target.value)
   }
 
   useEffect(() => {
 	let id = localStorage.getItem("idUser");
 	id = parseInt(id);
-	
+
+	axios.get(`http://localhost:4200/api/offers/${id}/points`, {
+	}).then(response => {
+		//console.log(response.data);
+		setYourPoints(response.data[0]);
+		//console.log(yourPoints);
+	}).catch(error => {
+		console.log(error);
+		alert("Nu s-au putut găsi punctele tale");
+	});
+
         axios.get(`http://localhost:4200/api/machinery/${id}/no-client`, {
         }).then(response => {
 		setMachineries(response.data);
-		console.log(machineries);
+		//console.log(machineries);
         }).catch(error => {
             console.log(error)
             alert('Ceva nu a mers bine! Asigura-te ca datele introduse sunt corecte si ca ti-ai activat contul!')
@@ -166,7 +177,7 @@ function OrdersContent({match}) {
 	axios.get(`http://localhost:4200/api/offers/${id}/for-client`, {
 	}).then(response => {
 		setOfferForClient(response.data);
-		console.log(response.data);
+		//console.log(response.data);
 		if (response.data.length >= 1)
 		alert('Animăluțul tău a fost găsit!');
 	}).catch(error => {
@@ -184,7 +195,7 @@ function OrdersContent({match}) {
 
   function saveOffer(machinery) {
 	  
-				console.log(machineries[0].id);
+				//console.log(machineries[0].id);
 	  axios.post(`http://localhost:4200/api/offers/add`, {
 		clientId: parseInt(localStorage.getItem("idUser")),
 		machineryId: machinery,
@@ -193,6 +204,16 @@ function OrdersContent({match}) {
 	  }).then(response => {
 		handleClose();
 	  }).catch(error => {
+	  });
+
+	  axios.post(`http://localhost:4200/api/offers/addPoints`, {
+		id: parseInt(localStorage.getItem('idUser')),
+		petId: machinery,
+		points: 100
+	  }).then(response => {
+		console.log("Adding points");
+	  }).catch(error => {
+		console.log(error);
 	  })
   }
   const Input = styled('input')({
@@ -340,6 +361,10 @@ function OrdersContent({match}) {
 
   }
 
+  function getYourRewards() {
+
+  }
+
   return (
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -420,6 +445,7 @@ function OrdersContent({match}) {
 	    <div>
 	  	<h1> Istoric animăluțe salvate: </h1>
 	   	<div><h2> Animăluțe salvate de tine: </h2> {getYourOffers()} </div>
+	  	<div><h2> Punctele tale: {yourPoints.points} </h2> </div>
 	  	<div><h2> Animăluțele tale care s-au găsit💕:  </h2> {getOffersForClient()} </div>
 	    </div>
             <Copyright sx={{ pt: 40 }} />

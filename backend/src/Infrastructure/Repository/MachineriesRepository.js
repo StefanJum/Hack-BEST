@@ -24,7 +24,7 @@ const getMachineriesByClientId = async (clientId) => {
                         u.perioadaInceput AS startDate
                     FROM
                         pet u
-                    WHERE u.idClient = $1`, [clientId]);
+                    WHERE u.idClient = $1 AND valabil = TRUE`, [clientId]);
 }
 
 const getAllMachineriesExceptYours = async (clientId) => {

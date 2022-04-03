@@ -15,6 +15,9 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
+import ReactDOM from 'react-dom';
+import GooglePanel from './SignIn.js'
 
 function Copyright(props) {
     return (
@@ -28,6 +31,31 @@ function Copyright(props) {
         </Typography>
     );
 }
+
+
+const responseGoogle = (response) => {
+  console.log(response);
+}
+
+    //const responseGoogle = (googleUser) => {
+            //console.log(JSON.stringify(googleUser));
+            //const idToken = googleUser.getAuthResponse().id_token;
+            //const googleEmail = googleUser.profileObj.email;
+            //console.log('The id_token is ' + idToken)
+            //localStorage.setItem('idToken', idToken);
+            //localStorage.setItem('googleEmail', googleEmail);
+            //props.history.push(props.onLogin);
+        //};
+
+    //const responseGoogle = (googleUser) => {
+            //console.log(JSON.stringify(googleUser));
+            //const idToken = googleUser.getAuthResponse().id_token;
+            //const googleEmail = googleUser.profileObj.email;
+            //console.log('The id_token is ' + idToken)
+            //localStorage.setItem('idToken', idToken);
+            //localStorage.setItem('googleEmail', googleEmail);
+            ////props.history.push(props.onLogin);
+        //};
 
 export default function SignIn() {
 
@@ -114,6 +142,13 @@ export default function SignIn() {
                                     </MuiLink>
                                 </Grid>
                             </Grid>
+	            <GoogleLogin
+	                clientId="105844715068481158478"
+	                buttonText="Login with Google"
+	                onSuccess={responseGoogle}
+	                onFailure={responseGoogle}
+	                cookiePolicy={'single_host_origin'}
+	            />
                             <Copyright sx={{ mt: 5 }} />
                         </Box>
                     </Box>

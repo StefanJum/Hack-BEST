@@ -4,8 +4,8 @@ const addUser = async (name, email, password, phoneNUmber) => {
     console.info(`Adding user ${name}`);
 
     const users = await queryAsync(`
-        INSERT INTO clienti(nume, email, parola, numarTelefon)
-        VALUES ($1, $2, $3, $4) RETURNING id, nume`, [name, email, password, phoneNUmber]);
+        INSERT INTO clienti(nume, email, parola, numarTelefon, nrPuncte)
+        VALUES ($1, $2, $3, $4, $5) RETURNING id, nume`, [name, email, password, phoneNUmber, 0]);
         
     return users[0];
 }

@@ -126,7 +126,7 @@ function DashboardContent({ match }) {
   const [id, setId] = React.useState(parseInt(localStorage.getItem("idUser")));
   const [state, setState] = React.useState({type: "", description: "", price: "", isAvailable: true, startDate: "", endDate: ""});
   const [machineries, setMachineries] = React.useState([{type: "", description: "", price: "", isAvailable: true, startDate: "", endDate: "", id: 0, clientId: 0}]);
-  const [value, setValue] = React.useState(new Date('2022-04-02T21:11:54'));
+  const [value, setValue] = React.useState(new Date('2022-04-03T13:11:54'));
 
   const handleChange = (newValue) => {
     setValue(newValue);

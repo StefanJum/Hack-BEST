@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PetsIcon from '@mui/icons-material/Pets';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -29,9 +30,9 @@ export const mainListItems = (
       to={'/dashboard/orders'}>
       <ListItem button>
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <PetsIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="Animăluțe salvate" />
       </ListItem>
     </MuiLink>
   </div>
@@ -56,7 +57,7 @@ export const secondaryListItems = (
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Last year" />
     </ListItem>
   </div>
 );

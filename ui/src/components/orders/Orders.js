@@ -55,7 +55,7 @@ function Copyright(props) {
   );
 }
 
-const drawerWidth = 220;
+const drawerWidth = 200;
 
 const style = {
   position: 'absolute',
@@ -102,7 +102,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       boxSizing: 'border-box',
       ...(!open && {
         overflowX: 'hidden',
-        transition: theme.transitions.create('width: auto', {
+        transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
@@ -115,7 +115,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-function OrdersContent() {
+function OrdersContent({match}) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [open, setOpen] = React.useState(true);
 
@@ -202,7 +202,7 @@ function OrdersContent() {
   function generateMachineryElement(machinery) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "3%", textAllign: "center", width: "calc(200% - 21px)"}}>
+		<Paper elevation={5} style={{margin: "1%", textAllign: "center", width: "calc(200% - 21px)", padding: "1px", height: "calc(100% - 10px)"}}>
 
             <CardMedia
                 component="img"
@@ -249,8 +249,8 @@ function OrdersContent() {
 				onClose={handleClose}
 				aria-labelledby="modal-title"
 			>
-	  		  <Box component="form" noValidate sx={{ ...style, width: "60%", height: "60%" }}>
-	  		    <Grid container spacing={2}>
+	  		  <Box component="form" noValidate sx={{ ...style, width: "50%", height: "45%" }}>
+	  		    <Grid container spacing={1}>
 	  		     <h2 id="modal-title">Animăluț găsit😍. Te rog completează:</h2>
 				<TextField
 				    multiline = "true"
@@ -267,7 +267,7 @@ function OrdersContent() {
       <label htmlFor="contained-button-file">
         <Input accept="image/*" id="contained-button-file" multiple type="file" />
         <Button variant="contained" component="span">
-          Upload
+          Upload😎
         </Button>
       </label>
       <label htmlFor="icon-button-file">
@@ -285,7 +285,7 @@ function OrdersContent() {
 				sx={{ mt: 3, mb: 2 }}
 				style={{marginTop: "5%"}}
 			    >
-				Adaugă
+				Adaugă❤️
 			    </Button>
 			  </Box>
 			</Modal>
@@ -301,12 +301,11 @@ function OrdersContent() {
   function generateyourOffersElement(offer) {
 	return (
 		<Grid items xs={6}>
-		<Paper elevation={5} style={{margin: "auto", textAllign: "center", position: "center", size: "landscape", width: "calc(200% - 21px)"}}>
-		    <span>Ai salvat animăluțul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> lui <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
+		<Paper elevation={5} style={{ textAllign: "center", position: "center", width: "calc(200% - 21px)", paddingTop:"5%", marginTop:"5%", paddingBottom:"20%", marginBottom:"5%"}}>
+		    <span style={{ marginLeft: "2%", marginTop:"2%"}}>Ai salvat animăluțul:<span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> lui <span style={{fontWeight: "bold"}}>{offer.clientName}</span> </span>
 		    <div>
 
-		      <span style={{margin: "1%", marginLeft: "0%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price} puncte</span></span>
-
+		      <span style={{margin: "0%", marginLeft: "2%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price} puncte</span></span>
 		    </div>
 		</Paper>
 	    </Grid>
@@ -323,10 +322,10 @@ function OrdersContent() {
 	return (
 		<Grid items xs={6}>
 
-		<Paper elevation={5} style={{margin: "auto", textAllign: "center", width: "calc(200% - 21px)"}}>
-		    <span>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> și are numărul de telefon: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.clientPhone}</span></span>
+    <Paper elevation={5} style={{ textAllign: "center", position: "center", width: "calc(200% - 21px)", paddingTop:"5%", marginTop:"5%", paddingBottom:"20%", marginBottom:"5%"}}>
+        <span style={{ marginLeft: "2%", marginTop:"2%"}}>Persoana <span style={{fontWeight: "bold"}}> {offer.clientName} </span>a salvat animăluțul: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.type}</span> și are numărul de telefon: <span style={{fontWeight: "bold", marginLeft: "1%"}}>{offer.clientPhone}</span></span>
 		    <div>
-		      <span style={{margin: "1%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price} puncte</span></span>
+          <span style={{margin: "0%", marginLeft: "2%", display: "flex", justifyContent: "flex-start"}}>Recompensă: <span style={{fontWeight: "bold"}}>{offer.price} puncte</span></span>
 
 
 		    </div>
@@ -360,20 +359,21 @@ function OrdersContent() {
                 ...(open && { display: 'none' }),
               }}
             >
-              <MenuIcon />
+              <MenuIcon/>
             </IconButton>
             <Typography
+              
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1}}
             >
               Animăluțe pierdute
             </Typography>
-            <IconButton color="inherit">
-	  	<AddIcon color = "primary" />
-            </IconButton>
+            {/* <IconButton color="inherit"> */}
+	  	{/* <AddIcon color = "primary" />
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         
@@ -409,7 +409,7 @@ function OrdersContent() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 5, mb: 100 }}>
             <Grid container spacing={3}>
 	  	<SearchBar />
              
@@ -422,7 +422,7 @@ function OrdersContent() {
 	   	<div><h2> Animăluțe salvate de tine: </h2> {getYourOffers()} </div>
 	  	<div><h2> Animăluțele tale care s-au găsit💕:  </h2> {getOffersForClient()} </div>
 	    </div>
-            <Copyright sx={{ pt: 4 }} />
+            <Copyright sx={{ pt: 40 }} />
           </Container>
         </Box>
       </Box>

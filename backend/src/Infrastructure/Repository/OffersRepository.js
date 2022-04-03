@@ -22,6 +22,31 @@ const setFalse = async (offerId) => {
 	return response;
 }
 
+const getPoints = async (clientId) => {
+	console.info('Get user points');
+
+	const response = await queryAsync(`
+	SELECT c.nrPuncte as points
+	FROM clienti c
+	WHERE c.id = $1
+		`, [clientId]);
+
+	return response;
+}
+
+const addPoints = async (clientId, points, petId) => {
+	console.log('Adding points to user');
+
+	const response = await queryAsync(`
+	UPDATE clienti c
+	SET nrPuncte = nrPuncte + CAST (puncte AS INTEGER) + $2
+	FROM pet m
+	WHERE c.id = $1 AND m.id = $3
+		`, [clientId, points, petId]);
+
+	return response;
+}
+
 const getOffersByClientId = async (clientId) => {
     console.info(`Getting offers for client ${clientId}`);
 
@@ -83,5 +108,7 @@ module.exports = {
     getOffersByMachineryId,
     getOffersForClientId,
     getAllOffers,
-    setFalse
+    setFalse,
+    getPoints,
+    addPoints
 }

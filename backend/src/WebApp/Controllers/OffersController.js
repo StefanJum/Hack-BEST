@@ -16,6 +16,30 @@ Router.post('/add', async (req, res) => {
     ResponseFilter.setResponseDetails(res, 200, response)
 });
 
+Router.post('/addpoints', async (req, res) => {
+	//let  = req.body;
+
+	let id = parseInt(req.body.id);
+	let points = parseInt(req.body.points);
+	let petId = parseInt(req.body.petId)
+
+	console.log(id, points);
+	let addPoints = await OffersRepository.addPoints(id, points, petId);
+	ResponseFilter.setResponseDetails(res, 200, addPoints);
+});
+
+Router.get('/:id/points', async (req, res) => {
+	let {
+		id
+	} = req.params;
+
+	id = parseInt(id);
+
+	const currentPoints = await OffersRepository.getPoints(id);
+
+	ResponseFilter.setResponseDetails(res, 200, currentPoints);
+});
+
 Router.get('/:id/client', async (req, res) => {
     let {
         id
